@@ -53,7 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     const showInitialDialog = () => {
         vscode.window.showInformationMessage(
-            'Do you want to check for missing calcs?',
+            'Do you want to check for missing calc()?',
             { modal: true },
             'Enable',
             'Disable'
@@ -119,7 +119,7 @@ async function triggerUpdateDecorations(editor: vscode.TextEditor) {
     const root = postcss().process(text, { parser: safeParser, from: undefined }).root;
     root.walkDecls(decl => {
         const value = decl.value;
-        if (decl.source && decl.source.start && decl.source.end && /[\+\-\*\/]/.test(value) && !/calc\(/.test(value) && !isStandaloneVar(value)) {
+        if (decl.source && decl.source.start && decl.source.end && /[\+\-*\/]/.test(value) && !/\b(calc|min|max|clamp)\(/.test(value) && !isStandaloneVar(value)) {
             const startPos = editor.document.positionAt(decl.source.start.offset);
             const endPos = editor.document.positionAt(decl.source.end.offset);
             const range = new vscode.Range(startPos, endPos);
@@ -142,7 +142,7 @@ async function checkForMissingCalc(document: vscode.TextDocument, diagnosticColl
     root.walkDecls(decl => {
         const value = decl.value;
 
-        if (decl.source && decl.source.start && decl.source.end && /[\+\-\*\/]/.test(value) && !/calc\(/.test(value) && !isStandaloneVar(value)) {
+        if (decl.source && decl.source.start && decl.source.end && /[\+\-*\/]/.test(value) && !/\b(calc|min|max|clamp)\(/.test(value) && !isStandaloneVar(value)) {
             const startPos = document.positionAt(decl.source.start.offset);
             const endPos = document.positionAt(decl.source.end.offset);
             const range = new vscode.Range(startPos, endPos);

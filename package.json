@@ -1,8 +1,14 @@
 {
   "name": "dont-forget-calc",
   "displayName": "Don't Forget Calc",
-  "description": "A simple extension to warn you when calc is missing in CSS computations",
-  "version": "0.0.1",
+  "description": "A simple extension to warn and flag missing calc() in your css",
+  "version": "0.0.2",
+  "publisher": "jabclari",
+  "icon": "images/calc.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JABClari/dontforgetcalc"
+  },
   "engines": {
     "vscode": "^1.89.0"
   },
@@ -27,7 +33,7 @@
     "commands": [
       {
         "command": "dontForgetCalc.toggleWarnings",
-        "title": "Hello World"
+        "title": "calc check"
       }
     ],
     "codeActions": [
